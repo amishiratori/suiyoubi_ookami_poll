@@ -8,9 +8,9 @@ gem 'sinatra-contrib'
 gem 'activerecord', '5.2.3'
 gem 'sinatra-activerecord'
 gem 'dotenv'
-gem 'sqlite3', '1.4.1'
 
 group :development do
+  gem 'sqlite3', '1.4.1'
   gem 'debase'
   gem 'rubocop'
   gem 'ruby-debug-ide'
