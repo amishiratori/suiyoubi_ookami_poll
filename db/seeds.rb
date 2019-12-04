@@ -39,8 +39,6 @@ Mentor.create({
 })
 
 
-
-
 Mentor.create({
   name:'あっぷる',
   image:'./images/apple.jpg',

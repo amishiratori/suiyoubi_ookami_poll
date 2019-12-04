@@ -31,7 +31,7 @@ before do
 end
 
 get '/' do
-  @mentors = Mentor.all
+  @mentors = Mentor.all.order('id')
   erb :index
 end
 
