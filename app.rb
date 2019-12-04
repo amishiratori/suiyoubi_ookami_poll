@@ -1,11 +1,28 @@
 require 'bundler/setup'
 Bundler.require
 require 'sinatra/reloader' if development?
+require 'dotenv'
 require 'securerandom'
 require 'sinatra/cookies'
 require './models.rb'
 
 helpers Sinatra::Cookies
+
+helpers do
+  Dotenv.load
+  def protect!
+    unless authorized?
+      response['WWW-Authenticate'] = %(Basic realm="Restricted Area")
+      throw(:halt, [401, "Not authorized\n"])
+    end
+  end
+  def authorized?
+    @auth ||=  Rack::Auth::Basic::Request.new(request.env)
+    username = ENV['BASIC_AUTH_USERNAME']
+    password = ENV['BASIC_AUTH_PASSWORD']
+    @auth.provided? && @auth.basic? && @auth.credentials && @auth.credentials == [username, password]
+  end
+end
 
 before do
   unless cookies[:uuid]
@@ -39,6 +56,7 @@ post '/vote/:id' do
 end
 
 get '/admin' do
+  protect!
   @mentors = Mentor.all
   erb :index
 end
