@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="https://kit.fontawesome.com/5ac9533b42.js"></script>
+	<link rel="stylesheet" href="./stylesheets/style.css">
+	<title>特設投票サイト|水曜日のおおかみくんには騙されない</title>
+	<meta property="og:title" content="特設投票サイト|水曜日のおおかみくんには騙されない" />
+  <meta property="og:site_name" content="特設投票サイト|水曜日のおおかみくんには騙されない" />
+  <meta property="og:image" content="https://res.cloudinary.com/dg61muele/image/upload/v1575438302/mainvisual_owzyml.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="400" />
+  <meta property="og:image:height" content="300" />
+	<link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+	<div class="header">
+		<a href="#mentors"><span></span>scroll</a>
+	</div>
+	<div class="container-fluid" id="mentors">
+		<div class="row">
+			<% @mentors.each do |mentor| %>
+				<div class="card col-xs-9 col-sm-9 col-md-3 col-lg-3 col-xl-3 my-4">
+					<img src="<%= mentor.image %>" alt="" class="card-img-top">
+					<p><%= mentor.name %></p>
+					<% unless request.path_info == '/admin'%>
+						<button class="ookami_button" value="<%= mentor.id %>" data-toggle="modal" data-target="#modal">オオカミだと疑う</button>
+					<% else %>
+						<span><%= mentor.votes %></span>
+					<% end %>
+				</div>
+			<% end %>
+		</div>
+		<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="detail" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div id="detail" class="modal-content">
+					<div class="modal-header text-center">
+						<button type="button" class="close" data-dismiss="modal" aria-lable="Close"><span aria-hidden="true">&times;</span></button>
+					</div>
+					<h2 class="result"></h2>
+					<img src="./images/wolf.png" alt="">
+					<div class="modal-body text-center message"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		window.onload = function(){
+			$(".ookami_button").click(function(){
+				mentor_id = $(this).val();
+				mentor_name = $(this).siblings('p').text();
+				$.ajax(`/vote/${mentor_id}`, {
+					type: 'POST'
+				})
+				.done(function(result){
+					if (result == 'success'){
+						$('.result').text('Success!');
+						$('.message').text(`${mentor_name}に投票しました！`)
+					}else{
+						$('.result').text('Failed...');
+						$('.message').text(`${mentor_name}に投票するには、少し時間をおいてね`)
+					}
+				})
+			})
+		}
+	</script>
+</body>
+</html>

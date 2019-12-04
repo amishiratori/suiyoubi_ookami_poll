@@ -1,0 +1,189 @@
+@font-face{
+  font-family: 'karakaze';
+  src: url(../fonts/karakaze-M.ttf)
+}
+
+@font-face{
+  font-family: 'a1';
+  src: url(../fonts/A-OTF-A1.otf);
+}
+
+*{
+  margin:0;
+  padding:0;
+}
+
+body{
+  width: 100vw;
+  background: #102541;
+}
+
+.container-fluid{
+  width: 100vw;
+}
+
+
+.header{
+  margin-bottom: 6vh;
+  width: 100vw;
+  height: 100vh;
+}
+
+.header img{
+  color: #fff;
+  position: absolute;
+  z-index: 5;
+  width: 100vw;
+  top:0;
+  left:0;
+}
+
+.card{
+  border-style: none;
+  text-align: center;
+  background: #fff;
+  padding: 4vh 3vw;
+  border: 0.05em solid #102541;
+  border-radius: 1rem;
+}
+
+.card p{
+  font-family: 'karakaze';
+  margin-top: 1.5rem;
+  font-size: 3.2rem;
+  color: #373434;
+}
+
+.card button{
+  margin: 1vh auto;
+  padding: 0.5rem 1.5rem;
+  font-family: 'a1';
+  font-size: 1rem;
+  text-decoration: none;
+  color: #fff;
+  border: 0.08em solid #102541;
+  border-radius: 2rem;
+  background: #102541;
+}
+
+.card button:hover{
+  background: #fff;
+  color: #102541;
+}
+
+
+span{
+  margin: 0 0.5rem;
+  letter-spacing: 0.5rem;
+}
+
+h2{
+  font-family: 'karakaze';
+  font-size: 4rem;
+  text-align: center !important;
+  color: #373434
+}
+
+.modal h2 {
+  font-size: 3rem;
+  margin: 1rem 0
+}
+
+.message{
+  margin: 2rem 0
+}
+
+@media screen and (max-width:960px){
+  .header{
+    background-image: url(../images/mainvisual-sp.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  .card{
+    margin: 3vh 1vw;
+  }
+  .header a{
+    display: none;
+  }
+  h1{
+    font-size: 2rem;
+    margin-top: -15vh;
+  }
+  .modal img{
+    width: 50vw;
+    height: 50vw;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width:960px){
+  .card{
+    margin: 5vh 4vw;
+  }
+  .header{
+    background-image: url(../images/mainvisual.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .header a {
+    font-family: 'Red Hat Text', sans-serif;
+    position: absolute;
+    bottom: 1vh;
+    right: 5vw;
+    z-index: 10;
+    display: inline-block;
+    -webkit-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    text-decoration: none;
+    padding-top: 10vh;
+    color: #fff;
+  }
+
+  .header a span {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    margin-left: -12px;
+    border-left: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-animation: sdb 1.5s infinite;
+    animation: sdb 1.5s infinite;
+    box-sizing: border-box;
+}
+@-webkit-keyframes sdb {
+  0% {
+    -webkit-transform: rotate(-45deg) translate(0, 0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: rotate(-45deg) translate(-20px, 20px);
+    opacity: 0;
+  }
+}
+@keyframes sdb {
+  0% {
+    transform: rotate(-45deg) translate(0, 0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(-45deg) translate(-20px, 20px);
+    opacity: 0;
+  }
+}
+
+ .modal img{
+   width: 10vw;
+   height: 10vw;
+   margin: 0 auto;
+ }
+}
